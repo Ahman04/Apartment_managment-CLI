@@ -33,6 +33,21 @@ def get_apartment_tenants(apartment_id):
         return apartment.tenants
     return None
 
+def update_apartment(apartment_id, number=None, unit_type=None, rent_amount=None):
+    apartment = find_apartment(apartment_id)
+    if apartment:
+        if number:
+            apartment.number = number
+        if unit_type:
+            apartment.unit_type = unit_type
+        if rent_amount:
+            apartment.rent_amount = rent_amount
+
+        session.commit()
+        return apartment
+    return None
+
+
 
 # ---------------------------
 # TENANT FUNCTIONS
@@ -64,6 +79,20 @@ def get_tenant_payments(tenant_id):
         return tenant.payments
     return None
 
+def update_tenant(tenant_id, name=None, phone=None, apartment_id=None):
+    tenant = find_tenant(tenant_id)
+    if tenant:
+        if name:
+            tenant.name = name
+        if phone:
+            tenant.phone = phone
+        if apartment_id:
+            tenant.apartment_id = apartment_id
+
+        session.commit()
+        return tenant
+    return None
+
 
 # ---------------------------
 # PAYMENT FUNCTIONS
@@ -88,3 +117,15 @@ def delete_payment(payment_id):
         session.commit()
         return True
     return False
+
+def update_payment(payment_id, amount=None, date_paid=None):
+    payment = find_payment(payment_id)
+    if payment:
+        if amount:
+            payment.amount = amount
+        if date_paid:
+            payment.date_paid = date_paid
+
+        session.commit()
+        return payment
+    return None

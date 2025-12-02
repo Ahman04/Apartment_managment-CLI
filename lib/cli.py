@@ -1,8 +1,8 @@
 import click
 from functions import (
-    create_apartment, list_apartments, find_apartment, delete_apartment, get_apartment_tenants,
-    create_tenant, list_tenants, find_tenant, delete_tenant, get_tenant_payments,
-    create_payment, list_payments, find_payment, delete_payment
+    create_apartment, list_apartments, find_apartment, delete_apartment, get_apartment_tenants, update_apartment,
+    create_tenant, list_tenants, find_tenant, delete_tenant, get_tenant_payments, update_tenant,
+    create_payment, list_payments, find_payment, delete_payment, update_payment
 )
 
 # ----------------------------------------------------
@@ -60,6 +60,19 @@ def tenants(id):
     else:
         click.echo("No tenants or apartment not found")
 
+@apartment.command()
+@click.argument("id", type=int)
+@click.option("--number", default=None)
+@click.option("--unit_type", default=None)
+@click.option("--rent_amount", type=int, default=None)
+def update(id, number, unit_type, rent_amount):
+    apt = update_apartment(id, number, unit_type, rent_amount)
+    if apt:
+        click.echo(f"Apartment updated: {apt}")
+    else:
+        click.echo("Apartment not found")
+
+
 
 # ----------------------------------------------------
 # TENANT COMMANDS
@@ -107,6 +120,18 @@ def payments(id):
     else:
         click.echo("No payments or tenant not found")
 
+@tenant.command()
+@click.argument("id", type=int)
+@click.option("--name", default=None)
+@click.option("--phone", default=None)
+@click.option("--apartment_id", type=int, default=None)
+def update(id, name, phone, apartment_id):
+    t = update_tenant(id, name, phone, apartment_id)
+    if t:
+        click.echo(f"Tenant updated: {t}")
+    else:
+        click.echo("Tenant not found")
+
 
 # ----------------------------------------------------
 # PAYMENT COMMANDS
@@ -143,6 +168,18 @@ def delete(id):
         click.echo("Payment deleted")
     else:
         click.echo("Payment not found")
+
+@payment.command()
+@click.argument("id", type=int)
+@click.option("--amount", type=int, default=None)
+@click.option("--date_paid", default=None)
+def update(id, amount, date_paid):
+    p = update_payment(id, amount, date_paid)
+    if p:
+        click.echo(f"Payment updated: {p}")
+    else:
+        click.echo("Payment not found")
+
 
 
 # ----------------------------------------------------
