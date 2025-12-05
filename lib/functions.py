@@ -49,9 +49,8 @@ def update_apartment(apartment_id, number=None, unit_type=None, rent_amount=None
 
 
 
-# ---------------------------
+
 # TENANT FUNCTIONS
-# ---------------------------
 
 def create_tenant(name, phone, apartment_id):
     tenant = Tenant(name=name, phone=phone, apartment_id=apartment_id)
@@ -94,9 +93,8 @@ def update_tenant(tenant_id, name=None, phone=None, apartment_id=None):
     return None
 
 
-# ---------------------------
+
 # PAYMENT FUNCTIONS
-# ---------------------------
 
 def create_payment(amount, date_paid, tenant_id):
     payment = Payment(amount=amount, date_paid=date_paid, tenant_id=tenant_id)
